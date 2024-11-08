@@ -145,7 +145,7 @@ export const ConnectionModal = () => {
               </button>
             </div>
             <p className="text-base font-semibold text-muted-foreground">
-              {balance} SOL
+              {balance.toFixed(5)} SOL
             </p>
           </div>
           <div className="flex gap-2 max-md:p-4">
@@ -186,7 +186,7 @@ export const ConnectionModal = () => {
           <h1 className="text-sm font-medium text-foreground">
             Installed Wallets
           </h1>
-          <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4">
+          <div className="xs:grid-cols-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {installedWallets.length > 0 ? (
               installedWallets.map((wallet) => (
                 <Button
