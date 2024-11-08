@@ -24,12 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${satoshi.variable} font-main antialiased`}>
-        <ThemeProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${satoshi.variable} relative font-main antialiased`}>
+        <div className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-screen bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:25px_25px] opacity-30 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
           <div
             vaul-drawer-wrapper
-            className="flex items-center justify-center container mx-auto h-[100dvh]"
+            className="container mx-auto flex h-[100dvh] items-center justify-center px-2"
           >
             {children}
           </div>

@@ -1,5 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { Button } from "@/ui/button";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
 export const ThemeToggle = ({ className }: { className?: string }) => {
@@ -9,16 +11,13 @@ export const ThemeToggle = ({ className }: { className?: string }) => {
   };
 
   return (
-    <div
+    <Button
       onClick={toggleTheme}
-      className={cn(
-        "relative inline-flex cursor-pointer select-none items-center transition border",
-        className,
-      )}
+      size={"icon"}
+      variant={"ghost"}
+      className={cn("rounded-xl", className)}
     >
-      <div
-        className={`size-6 rounded ${theme === "light" ? "bg-black" : "bg-white"}`}
-      />
-    </div>
+      {theme === "dark" ? <Sun /> : <Moon />}
+    </Button>
   );
 };
