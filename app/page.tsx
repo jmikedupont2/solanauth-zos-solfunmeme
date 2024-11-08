@@ -7,11 +7,14 @@ export default function Home() {
     <>
       <main className="flex flex-col items-center gap-10">
         <div className="flex max-w-lg flex-col items-center gap-4">
-          <h1 className="w-fit text-4xl font-semibold text-foreground md:text-5xl">
+          <h1 className="w-fit text-4xl font-semibold md:text-5xl">
             <span className="bg-gradient-to-r from-[#9945FF] to-[#14F195] bg-clip-text text-transparent">
               Solan
             </span>
-            Auth
+            <span className="bg-gradient-to-r from-[#14F195] to-foreground bg-clip-text text-transparent">
+              A
+            </span>
+            uth
           </h1>
           <p className="text-center text-lg font-medium leading-relaxed text-muted-foreground md:text-xl">
             Responsive Solana wallet authentication and account modal with{" "}
