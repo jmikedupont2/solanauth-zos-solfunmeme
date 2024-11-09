@@ -1,5 +1,11 @@
 import { ConnectIcon } from "@/components/icons/ConnectIcon";
-import { WalletList } from "@/components/WalletsList";
+import { WalletList } from "@/components/ui/wallets-list";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/ui/accordion";
 import { Button } from "@/ui/button";
 import {
   Credenza,
@@ -9,12 +15,6 @@ import {
   CredenzaTitle,
   CredenzaTrigger,
 } from "@/ui/credenza";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@radix-ui/react-accordion";
 import { WalletName } from "@solana/wallet-adapter-base";
 import { Wallet } from "@solana/wallet-adapter-react";
 import { AnimationControls } from "framer-motion";
@@ -49,7 +49,7 @@ export const WalletConnectModal = ({
       </Button>
     </CredenzaTrigger>
     <CredenzaContent className="h-fit gap-0 border bg-background p-0">
-      <CredenzaHeader className="border-b border-primary/20 p-5">
+      <CredenzaHeader className="border-b p-5">
         <CredenzaTitle className="font-semibold text-foreground">
           Connect Wallet
         </CredenzaTitle>

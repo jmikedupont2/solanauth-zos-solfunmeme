@@ -30,7 +30,8 @@ export const useWalletConnection = () => {
         }
 
         if (!wallet) {
-          throw new Error("Failed to select wallet after multiple attempts");
+          throw new Error("Failed to select wallet after multiple attempts")
+            .message;
         }
 
         await connect();

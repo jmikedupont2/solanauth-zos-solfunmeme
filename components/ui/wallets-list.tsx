@@ -45,7 +45,7 @@ export const WalletList = ({ wallets, onSelect, type }: WalletListProps) => {
           target="_blank"
           className="flex w-full items-center gap-2 rounded-md border border-primary/10 p-3 transition-all hover:border-primary/60 hover:bg-primary/20"
         >
-          <WalletIcon wallet={wallet} />
+          <WalletIcon size="md" wallet={wallet} />
           <span className="font-medium text-foreground">
             {wallet.adapter.name}
           </span>

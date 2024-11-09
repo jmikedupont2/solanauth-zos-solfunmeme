@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { Wallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import Image from "next/image";
@@ -30,7 +31,7 @@ export const ConnectedWalletModal = ({
   onOpenChange,
 }: ConnectedWalletModalProps) => (
   <Credenza open={open} onOpenChange={onOpenChange}>
-    <CredenzaTrigger className="outline-none ring-0">
+    <CredenzaTrigger className="outline-none ring-0" asChild>
       <Button className="h-fit gap-2 rounded-full bg-primary font-semibold text-background">
         <WalletIcon wallet={wallet} />
         <WalletAddress
@@ -52,6 +53,11 @@ export const ConnectedWalletModal = ({
             alt="Wallet"
             width={70}
             height={70}
+            className={cn(
+              wallet.adapter.name.toLowerCase() === "ledger"
+                ? "invert dark:invert-0"
+                : null,
+            )}
             loading="lazy"
           />
         </div>
