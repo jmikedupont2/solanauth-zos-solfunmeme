@@ -14,6 +14,7 @@ import {
   CredenzaTrigger,
 } from "@/components/ui/credenza";
 import { useGetBalance } from "@/hooks/useBalance";
+import { cn } from "@/lib/utils";
 import { WalletName } from "@solana/wallet-adapter-base";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useAnimation } from "framer-motion";
@@ -31,7 +32,7 @@ export const ConnectionModal = () => {
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const { connection } = useConnection();
   const balance = useGetBalance(publicKey, connection);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const truncate = useMemo(() => {
@@ -42,33 +43,43 @@ export const ConnectionModal = () => {
 
   const base58 = useMemo(() => publicKey?.toBase58(), [publicKey]);
 
-  const handleWalletAction = async (action: () => Promise<void>) => {
-    setIsLoading(true);
+  const connectWallet = useCallback(
+    async (walletName: WalletName, event?: React.MouseEvent) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+
+      setIsConnecting(true);
+      try {
+        if (!walletName) {
+          console.error("No wallet name provided");
+          return;
+        }
+
+        console.log("Selecting wallet:", walletName);
+        await select(walletName);
+
+        console.log("Selected wallet confirmed:", wallet?.adapter?.name);
+        await connect();
+        setOpenConnectModal(false);
+      } catch (error) {
+        console.error("Wallet connection error:", error);
+      } finally {
+        setIsConnecting(false);
+      }
+    },
+    [select, connect, wallet],
+  );
+
+  const disconnectWallet = useCallback(async () => {
+    setIsConnecting(true);
     try {
-      await action();
+      await disconnect();
+      setOpenWalletModal(false);
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(false);
+      setIsConnecting(false);
     }
-  };
-
-  const connectWallet = useCallback(
-    (walletName: WalletName) => {
-      handleWalletAction(async () => {
-        select(walletName);
-        await connect();
-        setOpenConnectModal(false);
-      });
-    },
-    [select, connect],
-  );
-
-  const disconnectWallet = useCallback(() => {
-    handleWalletAction(async () => {
-      await disconnect();
-      setOpenWalletModal(false);
-    });
   }, [disconnect]);
 
   const copyAddress = useCallback(async () => {
@@ -89,7 +100,7 @@ export const ConnectionModal = () => {
     [wallets],
   );
 
-  if (isLoading) {
+  if (isConnecting) {
     return (
       <Button
         disabled
@@ -173,7 +184,7 @@ export const ConnectionModal = () => {
           <ConnectIcon controls={controls} />
         </Button>
       </CredenzaTrigger>
-      <CredenzaContent className="h-fit gap-0 border bg-background p-0 text-white">
+      <CredenzaContent className="h-fit gap-0 border bg-background p-0">
         <CredenzaHeader className="border-b border-primary/20 p-5">
           <CredenzaTitle className="font-semibold text-foreground">
             Connect Wallet
@@ -186,18 +197,23 @@ export const ConnectionModal = () => {
           <h1 className="text-sm font-medium text-foreground">
             Installed Wallets
           </h1>
-          <div className="xs:grid-cols-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4">
             {installedWallets.length > 0 ? (
               installedWallets.map((wallet) => (
                 <Button
                   variant="ghost"
                   key={wallet.adapter.name}
                   onClick={() => connectWallet(wallet.adapter.name)}
-                  className="flex aspect-square h-auto flex-col items-center justify-center gap-2 rounded-md border border-primary/10 transition-all hover:border-primary/60 hover:bg-primary/20"
+                  className="flex aspect-square h-auto cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-primary/10 transition hover:border-primary/60 hover:bg-primary/20"
                 >
                   <Image
                     src={wallet.adapter.icon}
                     alt={wallet.adapter.name}
+                    className={cn(
+                      wallet.adapter.name.toLowerCase() === "ledger"
+                        ? "invert"
+                        : null,
+                    )}
                     width={26}
                     height={26}
                   />
@@ -207,7 +223,7 @@ export const ConnectionModal = () => {
                 </Button>
               ))
             ) : (
-              <p className="col-span-full text-center text-sm text-white/80">
+              <p className="col-span-full text-center text-sm text-muted-foreground">
                 No wallet found. Please download a supported Solana wallet.
               </p>
             )}
@@ -230,6 +246,11 @@ export const ConnectionModal = () => {
                           <Image
                             src={wallet.adapter.icon}
                             alt={wallet.adapter.name}
+                            className={cn(
+                              wallet.adapter.name.toLowerCase() === "ledger"
+                                ? "invert dark:invert-0"
+                                : null,
+                            )}
                             width={26}
                             height={26}
                           />
