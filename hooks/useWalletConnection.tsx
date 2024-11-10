@@ -9,32 +9,21 @@ export const useWalletConnection = () => {
   const connectWallet = useCallback(
     async (walletName: WalletName, event?: React.MouseEvent) => {
       event?.preventDefault();
-      event?.stopPropagation();
 
       setIsConnecting(true);
       try {
         if (!walletName) {
-          throw new Error("No wallet name provided");
+          throw new Error("No wallet name provided").message;
+        }
+
+        if (wallet?.adapter.name === walletName) {
+          await connect();
+          return true;
         }
 
         await select(walletName);
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        let retryCount = 0;
-        const maxRetries = 3;
-
-        while (!wallet && retryCount < maxRetries) {
-          await select(walletName);
-          await new Promise((resolve) => setTimeout(resolve, 100));
-          retryCount++;
-        }
-
-        if (!wallet) {
-          throw new Error("Failed to select wallet after multiple attempts")
-            .message;
-        }
-
         await connect();
+
         return true;
       } catch (error) {
         console.error("Wallet connection error:", error);

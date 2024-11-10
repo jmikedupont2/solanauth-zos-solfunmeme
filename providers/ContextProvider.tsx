@@ -40,7 +40,7 @@ export default function ContextProvider({
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets}>
+      <WalletProvider wallets={wallets} autoConnect>
         <div vaul-drawer-wrapper="true">{children}</div>
       </WalletProvider>
     </ConnectionProvider>
