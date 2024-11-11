@@ -26,14 +26,13 @@ export default function Home() {
               rotate={-3}
             />{" "}
             integration and{" "}
-            <a
+            <AnimatedTooltip
+              label="shadcn/ui"
+              className="font-semibold text-foreground transition-colors duration-300 ease-out"
+              icon={"/icons/shadcn-logo.png"}
               href="https://ui.shadcn.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-foreground"
-            >
-              shadcn/ui
-            </a>
+              rotate={3}
+            />
           </p>
         </div>
         <ActionButtons />

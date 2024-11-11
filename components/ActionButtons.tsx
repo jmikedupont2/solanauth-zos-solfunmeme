@@ -3,7 +3,7 @@ import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { Button } from "@/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { ConnectionModal } from "./WalletsModal";
+import { ConnectionModal } from "./WalletConnector";
 
 export const ActionButtons = () => {
   return (

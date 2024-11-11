@@ -1,8 +1,10 @@
 import { WalletIcon } from "@/components/icons/WalletIcon";
+import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import { WalletName } from "@solana/wallet-adapter-base";
-import { Wallet } from "@solana/wallet-adapter-react";
+import { useWallet, Wallet } from "@solana/wallet-adapter-react";
 import Link from "next/link";
+import { BorderTrail } from "./border-tail";
 
 type WalletListProps = {
   wallets: Wallet[];
@@ -11,18 +13,31 @@ type WalletListProps = {
 };
 
 export const WalletList = ({ wallets, onSelect, type }: WalletListProps) => {
+  const { wallet: selectedWallet } = useWallet();
   if (type === "installed") {
     return (
-      <div className="grid grid-cols-2 gap-3 xs:grid-cols-3 sm:grid-cols-4">
+      <div className="xss:grid-cols-3 grid grid-cols-2 gap-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-4">
         {wallets.length > 0 ? (
           wallets.map((wallet) => (
             <Button
               variant="ghost"
               key={wallet.adapter.name}
               onClick={() => onSelect(wallet.adapter.name)}
-              className="flex aspect-square h-auto cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-primary/10 transition hover:border-primary/60 hover:bg-primary/20"
+              className={cn(
+                "relative flex aspect-square h-auto cursor-pointer flex-col items-center justify-center gap-2 rounded-md border border-primary/10 transition hover:border-primary/60 hover:bg-primary/20",
+              )}
             >
-              <WalletIcon wallet={wallet} />
+              {selectedWallet?.adapter.name === wallet.adapter.name && (
+                <BorderTrail
+                  style={{
+                    boxShadow:
+                      "0px 0px 60px 30px rgb(255 255 255 / 50%), 0 0 100px 60px rgb(0 0 0 / 50%), 0 0 140px 90px rgb(0 0 0 / 50%)",
+                  }}
+                  size={100}
+                />
+              )}
+
+              <WalletIcon wallet={wallet} size="md" />
               <span className="text-sm text-foreground">
                 {wallet.adapter.name}
               </span>

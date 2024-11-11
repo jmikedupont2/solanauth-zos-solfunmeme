@@ -1,11 +1,10 @@
 import { WalletConnectModal } from "@/components/modals/WalletConnectModal";
-import { useGetBalance } from "@/hooks/useBalance";
+import { useBalance } from "@/hooks/useBalance";
 import { useWalletConnection } from "@/hooks/useWalletConnection";
-import { Button } from "@/ui/button";
 import { WalletName } from "@solana/wallet-adapter-base";
-import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { useConnection, useWallet, Wallet } from "@solana/wallet-adapter-react";
 import { useAnimation } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ConnectedWalletModal } from "./modals/ConnectedWalletModal";
 
 export const ConnectionModal = () => {
@@ -14,7 +13,7 @@ export const ConnectionModal = () => {
   const [openConnectModal, setOpenConnectModal] = useState(false);
   const [openWalletModal, setOpenWalletModal] = useState(false);
   const { connection } = useConnection();
-  const balance = useGetBalance(publicKey, connection);
+  const balance = useBalance(publicKey, connection);
   const { connectWallet, disconnectWallet, isConnecting } =
     useWalletConnection();
 
@@ -30,7 +29,9 @@ export const ConnectionModal = () => {
 
   const handleConnect = async (walletName: WalletName) => {
     const success = await connectWallet(walletName);
-    if (success) setOpenConnectModal(false);
+    if (success && connected) {
+      setOpenConnectModal(false);
+    }
   };
 
   const handleDisconnect = async () => {
@@ -38,21 +39,10 @@ export const ConnectionModal = () => {
     if (success) setOpenWalletModal(false);
   };
 
-  if (isConnecting) {
-    return (
-      <Button
-        disabled
-        className="h-fit gap-2 rounded-full bg-primary font-semibold text-background"
-      >
-        <span>Connecting...</span>
-      </Button>
-    );
-  }
-
-  if (connected && wallet && publicKey) {
+  if (connected && publicKey) {
     return (
       <ConnectedWalletModal
-        wallet={wallet}
+        wallet={wallet as Wallet}
         publicKey={publicKey}
         balance={balance}
         onDisconnect={handleDisconnect}
@@ -70,6 +60,7 @@ export const ConnectionModal = () => {
       onConnect={handleConnect}
       open={openConnectModal}
       onOpenChange={setOpenConnectModal}
+      isConnecting={isConnecting}
     />
   );
 };

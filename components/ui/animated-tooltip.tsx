@@ -48,7 +48,13 @@ export const AnimatedTooltip = ({
         className="absolute left-1/2 z-50 size-8 select-none"
         variants={iconVariants}
       >
-        <Image src={icon} alt={label} width={100} height={100} />
+        <Image
+          src={icon}
+          alt={label}
+          className="rounded"
+          width={100}
+          height={100}
+        />
       </motion.span>
     </motion.a>
   );

@@ -27,6 +27,7 @@ type WalletConnectModalProps = {
   onConnect: (name: WalletName) => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  isConnecting: boolean;
 };
 
 export const WalletConnectModal = ({
@@ -36,15 +37,17 @@ export const WalletConnectModal = ({
   onConnect,
   open,
   onOpenChange,
+  isConnecting,
 }: WalletConnectModalProps) => (
   <Credenza open={open} onOpenChange={onOpenChange}>
     <CredenzaTrigger asChild>
       <Button
+        disabled={isConnecting}
         className="h-fit gap-2 rounded-full bg-primary font-semibold text-background hover:bg-foreground"
         onMouseEnter={() => controls.start("animate")}
         onMouseLeave={() => controls.start("normal")}
       >
-        Connect Wallet
+        {isConnecting ? "Connecting..." : "Connect Wallet"}
         <ConnectIcon controls={controls} />
       </Button>
     </CredenzaTrigger>

@@ -27,22 +27,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${satoshi.variable} relative font-main antialiased`}>
-        <div className="absolute bottom-0 left-0 right-0 top-0 -z-10 h-screen bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:25px_25px] opacity-30 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]"></div>
-        <ContextProvider>
-          <ThemeProvider
-            disableTransitionOnChange
-            attribute={"class"}
-            defaultTheme="dark"
-          >
-            <div
-              vaul-drawer-wrapper="true"
-              className="container mx-auto flex h-[100dvh] items-center justify-center px-2"
+      <body className={`${satoshi.variable} font-main antialiased`}>
+        <div vaul-drawer-wrapper="true" className="relative bg-background">
+          <ContextProvider>
+            <ThemeProvider
+              disableTransitionOnChange
+              attribute="class"
+              defaultTheme="dark"
             >
-              {children}
-            </div>
-          </ThemeProvider>
-        </ContextProvider>
+              <div className="fixed inset-0 z-0 bg-background">
+                <div className="h-full w-full bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:25px_25px] opacity-30 [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_110%)]" />
+              </div>
+              <div className="relative z-10">
+                <div className="container mx-auto flex h-[100dvh] items-center justify-center px-2">
+                  {children}
+                </div>
+              </div>
+            </ThemeProvider>
+          </ContextProvider>
+        </div>
       </body>
     </html>
   );

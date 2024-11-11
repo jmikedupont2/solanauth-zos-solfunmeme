@@ -1,17 +1,17 @@
+import { WalletIcon } from "@/components/icons/WalletIcon";
 import { cn } from "@/lib/utils";
-import { Wallet } from "@solana/wallet-adapter-react";
-import { PublicKey } from "@solana/web3.js";
-import Image from "next/image";
-import { WalletIcon } from "../icons/WalletIcon";
-import { Button } from "../ui/button";
+import { Button } from "@/ui/button";
 import {
   Credenza,
   CredenzaContent,
   CredenzaHeader,
   CredenzaTitle,
   CredenzaTrigger,
-} from "../ui/credenza";
-import { WalletAddress } from "../ui/wallet-address";
+} from "@/ui/credenza";
+import { WalletAddress } from "@/ui/wallet-address";
+import { Wallet } from "@solana/wallet-adapter-react";
+import { PublicKey } from "@solana/web3.js";
+import Image from "next/image";
 
 type ConnectedWalletModalProps = {
   wallet: Wallet;
@@ -42,7 +42,7 @@ export const ConnectedWalletModal = ({
         />
       </Button>
     </CredenzaTrigger>
-    <CredenzaContent className="flex flex-col justify-between gap-0 !rounded-3xl border bg-background text-foreground md:aspect-square md:max-w-[370px]">
+    <CredenzaContent className="flex flex-col justify-between gap-0 rounded-t-3xl border bg-background text-foreground md:aspect-square md:max-w-[370px] md:rounded-3xl">
       <CredenzaHeader className="w-full !text-center text-xl font-semibold">
         <CredenzaTitle>{wallet.adapter.name}</CredenzaTitle>
       </CredenzaHeader>

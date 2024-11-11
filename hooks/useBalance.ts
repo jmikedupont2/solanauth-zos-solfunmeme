@@ -1,7 +1,7 @@
 import { Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import { useEffect, useState } from "react";
 
-export function useGetBalance(
+export function useBalance(
   publicKey: PublicKey | null,
   connection: Connection,
 ) {
