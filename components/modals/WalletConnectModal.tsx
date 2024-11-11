@@ -15,6 +15,7 @@ import {
   CredenzaTitle,
   CredenzaTrigger,
 } from "@/ui/credenza";
+import { ScrollArea } from "@/ui/scroll-area";
 import { WalletName } from "@solana/wallet-adapter-base";
 import { Wallet } from "@solana/wallet-adapter-react";
 import { AnimationControls } from "framer-motion";
@@ -75,11 +76,13 @@ export const WalletConnectModal = ({
               More Wallets
             </AccordionTrigger>
             <AccordionContent className="space-y-3 pb-0">
-              <WalletList
-                wallets={uninstalledWallets}
-                onSelect={onConnect}
-                type="uninstalled"
-              />
+              <ScrollArea className="h-[250px]">
+                <WalletList
+                  wallets={uninstalledWallets}
+                  onSelect={onConnect}
+                  type="uninstalled"
+                />
+              </ScrollArea>
               <p className="flex items-center justify-center gap-2 py-3 text-xs text-foreground">
                 <BadgeInfo className="size-4" />
                 <span>
