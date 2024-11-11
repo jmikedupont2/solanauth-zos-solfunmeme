@@ -76,7 +76,7 @@ export const WalletConnectModal = ({
               More Wallets
             </AccordionTrigger>
             <AccordionContent className="space-y-3 pb-0">
-              <ScrollArea className="h-[250px]">
+              <ScrollArea className="max-md:h-[250px]">
                 <WalletList
                   wallets={uninstalledWallets}
                   onSelect={onConnect}
