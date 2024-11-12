@@ -7,11 +7,6 @@ Responsive Solana wallet authentication and account modal with NextAuth integrat
 ![Demo](https://utfs.io/f/iUT8pU3lhYNeNPayHqf7d6VTx3LtcmvI9Ou5MAbowSehE48G)
 ![Demo](https://utfs.io/f/iUT8pU3lhYNeZxUEZcwi5ITcEC9xHU2vLFzjhpbgR1PMeO0Z)
 
-<div style="display: flex; gap: 20px">
-<img src="https://utfs.io/f/iUT8pU3lhYNeUAWR6VTYAjtNyo932GcDLE6wsqCp1SiOdV0r" width="300" style="flex: 1;"alt="Demo">
-<img src="https://utfs.io/f/iUT8pU3lhYNeuBhK7Kqpgnb5t7Hcj8zkd3sTwEJv4W0Iy1ZA" width="300" style="flex: 1;"alt="Demo">
-</div>
-
 ## Credits
 
 - [shadcn/ui](https://github.com/shadcn-ui/ui) by [shadcn](https://github.com/shadcn)
