@@ -4,7 +4,6 @@ import { getCsrfToken } from "next-auth/react";
 import { SigninMessage } from "../SigninMessage";
 
 export const authOptions: AuthOptions = {
-    debug: true,  // Add this to get more detailed logs
     providers: [
         CredentialsProvider({
             id: "signMessage",
@@ -21,14 +20,11 @@ export const authOptions: AuthOptions = {
             },
             async authorize(credentials, req) {
                 try {
-                    console.log("Authorize called with credentials:", credentials?.message);
-
                     const signinMessage = new SigninMessage(
                         JSON.parse(credentials?.message || "{}"),
                     );
 
                     const csrfToken = await getCsrfToken({ req: { ...req, body: null } });
-                    console.log("CSRF Token:", csrfToken);
 
                     if (!csrfToken) {
                         console.error("No CSRF token found");
