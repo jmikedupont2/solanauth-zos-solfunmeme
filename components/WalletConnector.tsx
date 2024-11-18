@@ -72,7 +72,7 @@ export const ConnectionModal = () => {
       try {
         await signIn(publicKey, signMessage);
       } catch (error) {
-        console.error("Error during sign-in:", error);
+        console.error("Error during sign-in message:", error);
       }
     };
 
