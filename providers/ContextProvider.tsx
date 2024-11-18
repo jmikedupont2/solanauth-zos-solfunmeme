@@ -13,6 +13,7 @@ import {
   TrustWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from "@solana/web3.js";
+import { SessionProvider } from "next-auth/react";
 import React, { useMemo, useState } from "react";
 
 export default function ContextProvider({
@@ -41,7 +42,9 @@ export default function ContextProvider({
   return (
     <ConnectionProvider endpoint={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
-        <div vaul-drawer-wrapper="true">{children}</div>
+        <SessionProvider>
+          <div vaul-drawer-wrapper="true">{children}</div>
+        </SessionProvider>
       </WalletProvider>
     </ConnectionProvider>
   );

@@ -1,4 +1,5 @@
 import { WalletIcon } from "@/components/icons/WalletIcon";
+import { signIn } from "@/lib/auth/signin";
 import { cn } from "@/lib/utils";
 import { Button } from "@/ui/button";
 import {
@@ -12,6 +13,7 @@ import { WalletAddress } from "@/ui/wallet-address";
 import { Wallet } from "@solana/wallet-adapter-react";
 import { PublicKey } from "@solana/web3.js";
 import Image from "next/image";
+import { Dispatch, SetStateAction } from "react";
 
 type ConnectedWalletModalProps = {
   wallet: Wallet;
@@ -20,6 +22,10 @@ type ConnectedWalletModalProps = {
   onDisconnect: () => void;
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  signMessage: (message: Uint8Array) => Promise<Uint8Array>;
+  setOpenWalletModal: Dispatch<SetStateAction<boolean>>;
+  status: string;
+  isConnecting: boolean;
 };
 
 export const ConnectedWalletModal = ({
@@ -29,6 +35,10 @@ export const ConnectedWalletModal = ({
   onDisconnect,
   open,
   onOpenChange,
+  signMessage,
+  setOpenWalletModal,
+  status,
+  isConnecting,
 }: ConnectedWalletModalProps) => (
   <Credenza open={open} onOpenChange={onOpenChange}>
     <CredenzaTrigger className="outline-none ring-0" asChild>
@@ -73,11 +83,25 @@ export const ConnectedWalletModal = ({
       </div>
       <div className="flex gap-2 max-md:p-4">
         <Button
-          className="w-full rounded-full border-none bg-foreground font-semibold"
+          className="w-full rounded-full border bg-transparent font-semibold text-foreground transition-all hover:border-foreground/60 hover:bg-transparent hover:text-foreground/80"
           onClick={onDisconnect}
         >
           Disconnect Wallet
         </Button>
+        {status === "unauthenticated" && (
+          <Button
+            className="w-full rounded-full border-none bg-foreground font-semibold"
+            onClick={async () => {
+              if (signMessage) {
+                setOpenWalletModal(false);
+                await signIn(publicKey, signMessage);
+              }
+            }}
+            disabled={isConnecting}
+          >
+            {isConnecting ? "Disconnecting..." : "Sign Message"}
+          </Button>
+        )}
       </div>
     </CredenzaContent>
   </Credenza>
