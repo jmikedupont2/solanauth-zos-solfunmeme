@@ -31,12 +31,6 @@ export const signIn = async (
             signature: serializedSignature,
             redirect: false,
         });
-        console.log({
-            message: JSON.stringify(message),
-            signature: serializedSignature,
-            redirect: false,
-        })
-        console.log({ response })
 
         if (response?.error) {
             console.error("Error during sign-in:", response.error);
