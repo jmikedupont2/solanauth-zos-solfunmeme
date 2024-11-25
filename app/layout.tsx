@@ -2,6 +2,7 @@ import ContextProvider from "@/providers/ContextProvider";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 
 const satoshi = localFont({
@@ -46,6 +47,7 @@ export default function RootLayout({
             </ThemeProvider>
           </ContextProvider>
         </div>
+        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
       </body>
     </html>
   );
