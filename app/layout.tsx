@@ -16,9 +16,9 @@ const satoshi = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SolanAuth",
+  title: "zos solfunmeme SolanAuth",
   description:
-    "Responsive Solana wallet authentication and account modal with NextAuth integration and shadcn/ui",
+    "Solfunmeme Solana wallet authentication",
 };
 
 export default function RootLayout({
@@ -47,7 +47,7 @@ export default function RootLayout({
             </ThemeProvider>
           </ContextProvider>
         </div>
-        <Script src="https://scripts.simpleanalyticscdn.com/latest.js" />
+        
       </body>
     </html>
   );

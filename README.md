@@ -1,4 +1,4 @@
-# SolanAuth
+# SolanAuth zos solfunmeme
 
 Responsive Solana wallet authentication and account modal with NextAuth integration and shadcn/ui.
 
